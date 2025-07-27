@@ -21,6 +21,7 @@ exports.createSensorData = async (req, res) => {
 
     res.status(201).json(sensorData);
   } catch (error) {
+    console.error("Create Sensor Data Error:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -39,32 +40,43 @@ exports.getRealtimeData = async (req, res) => {
       return res.status(404).json({ message: 'No data found for the specified borehole' });
     }
 
-    // Map pumpStatus from 'ON'/'OFF' to 'running'/'stopped'
-    let pumpStatusMapped = 'stopped';
-    if (latestData.pumpStatus === 'ON') {
-      pumpStatusMapped = 'running';
-    }
+    // Map pumpStatus
+    const pumpStatusMapped = latestData.pumpStatus === 'ON' ? 'running' : 'stopped';
 
-    // Convert pumpVibration number to vibrationLevel category
+    // Map vibration level
     let vibrationLevel = 'normal';
-    if (latestData.pumpVibration < 10) {
-      vibrationLevel = 'low';
-    } else if (latestData.pumpVibration > 30) {
-      vibrationLevel = 'high';
-    }
+    if (latestData.pumpVibration < 10) vibrationLevel = 'low';
+    else if (latestData.pumpVibration > 30) vibrationLevel = 'high';
 
-    // Add maxDepth and flowRate with default values
-    const maxDepth = 50;
-    const flowRate = 145;
+    // Simulated or fixed values
+    const maxDepth = 50; // meters
+    const flowRate = 145; // liters/min
+    const dailyUsage = Math.floor(Math.random() * (600 - 400 + 1)) + 400; // Simulated value 400-600
+    const connectivity = 'Strong';
+    const timestampFormatted = latestData.timestamp.toISOString();
+
+    // Optional trend data placeholders
+    const waterLevelTrend = []; // TODO: Populate with real data
+    const usageTrend = [];
+    const vibrationTrend = [];
 
     res.json({
       waterLevel: latestData.waterLevel,
       maxDepth,
       pumpStatus: pumpStatusMapped,
       vibrationLevel,
-      flowRate
+      flowRate,
+      dailyUsage,
+      connectivity,
+      timestamp: timestampFormatted,
+      waterLevelTrend,
+      usageTrend,
+      vibrationTrend,
+      alerts: [] // Placeholder for alert data
     });
+
   } catch (error) {
+    console.error("Realtime Data Error:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -88,6 +100,7 @@ exports.getHistoricalData = async (req, res) => {
 
     res.json(data);
   } catch (error) {
+    console.error("Historical Data Error:", error);
     res.status(500).json({ message: error.message });
   }
 };

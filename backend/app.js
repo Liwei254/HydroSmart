@@ -29,10 +29,13 @@ app.use('/api/test', testRoutes);
 const sensorDataRoutes = require('./routes/sensorData');
 const alertRoutes = require('./routes/alerts');
 const authRoutes = require('./routes/auth');
+const maintenanceRoutes = require('./routes/maintenance');
 
 // Use routes
 app.use('/api/sensor-data', sensorDataRoutes);
 app.use('/api/alerts', alertRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/maintenance', maintenanceRoutes);
+
 
 module.exports = app;

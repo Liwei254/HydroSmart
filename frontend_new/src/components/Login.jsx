@@ -7,6 +7,7 @@ const Login = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ const Login = ({ onLoginSuccess }) => {
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
       onLoginSuccess(user, token);
-      Navigate('/dashboard');
+      navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }
