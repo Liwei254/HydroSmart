@@ -6,11 +6,21 @@ import { BoreholeVisualization } from "@/components/dashboard/BoreholeVisualizat
 import { QuickAlerts } from "@/components/dashboard/QuickAlerts";
 import { MiniCharts } from "@/components/dashboard/MiniCharts";
 import { Droplets, Activity, Wifi, Wrench, TrendingUp } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext"; // Import useAuth
+import { useNavigate } from "react-router-dom";  // For redirecting after logout
 
 const Index = () => {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { logout } = useAuth();  // Access logout function from context
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();              // Clear auth state
+    navigate("/login");    // Redirect to login
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,6 +84,16 @@ const Index = () => {
 
   return (
     <DashboardLayout>
+      {/* Logout Button */}
+      <div className="flex justify-end p-4">
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
+        >
+          Logout
+        </button>
+      </div>
+
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
           {loading || error

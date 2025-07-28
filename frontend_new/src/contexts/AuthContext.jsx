@@ -6,9 +6,10 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     try {
       const savedUser = localStorage.getItem('user');
-      return savedUser ? JSON.parse(savedUser) : null;
+      const parsedUser = savedUser ? JSON.parse(savedUser) : null;
+      return parsedUser && parsedUser.username ? parsedUser : null;  // Strict check
     } catch (err) {
-      console.error("Failed to parse user from localStorage", err);
+      console.error("Invalid user in localStorage", err);
       localStorage.removeItem('user');
       return null;
     }
@@ -19,7 +20,7 @@ export const AuthProvider = ({ children }) => {
       const savedToken = localStorage.getItem('token');
       return savedToken || null;
     } catch (err) {
-      console.error("Failed to read token from localStorage", err);
+      console.error("Invalid token in localStorage", err);
       localStorage.removeItem('token');
       return null;
     }

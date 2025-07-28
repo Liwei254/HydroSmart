@@ -1,29 +1,36 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext'; // Make sure path is correct
+import { useAuth } from '../contexts/AuthContext';
+import axios from '../axiosInstance'; // Ensure this path is correct
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login, user } = useAuth();
   const navigate = useNavigate();
-  const { login } = useAuth(); // Get login function from context
+
+  // If already logged in, redirect to dashboard
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    try {
-      const response = await axios.post('/api/auth/login', { username, password });
-      const { token, user } = response.data;
-
-      login(user, token); // Save user and token to context/localStorage
-      navigate('/'); // Redirect to dashboard
-    } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || 'Login failed');
-    }
-  };
+  e.preventDefault();
+  setError('');
+  try {
+    const response = await axios.post('/auth/login', { username, password });
+    const { token, user } = response.data;
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    login(user, token);  // Call context login
+    navigate('/dashboard');
+  } catch (err) {
+    setError(err.response?.data?.message || 'Login failed');
+  }
+};
 
   return (
     <div className="login-container">
