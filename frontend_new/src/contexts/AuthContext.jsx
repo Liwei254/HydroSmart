@@ -4,10 +4,26 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    try {
+      const savedUser = localStorage.getItem('user');
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch (err) {
+      console.error("Failed to parse user from localStorage", err);
+      localStorage.removeItem('user');
+      return null;
+    }
   });
-  const [token, setToken] = useState(() => localStorage.getItem('token') || null);
+
+  const [token, setToken] = useState(() => {
+    try {
+      const savedToken = localStorage.getItem('token');
+      return savedToken || null;
+    } catch (err) {
+      console.error("Failed to read token from localStorage", err);
+      localStorage.removeItem('token');
+      return null;
+    }
+  });
 
   useEffect(() => {
     if (user && token) {
@@ -36,4 +52,10 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

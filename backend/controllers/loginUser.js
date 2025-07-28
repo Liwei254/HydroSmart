@@ -16,11 +16,18 @@ const loginUser = async (req, res) => {
     // Create JWT token
     const token = jwt.sign(
       { id: user._id, role: user.role },
-      process.env.JWT_SECRET || 'your_jwt_secret', // should be in .env
+      process.env.JWT_SECRET || 'your_jwt_secret',
       { expiresIn: '1d' }
     );
 
-    res.status(200).json({ message: 'Login successful', token });
+    // Return user info (exclude password)
+    const userData = {
+      id: user._id,
+      username: user.username,
+      role: user.role
+    };
+
+    res.status(200).json({ message: 'Login successful', token, user: userData });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
