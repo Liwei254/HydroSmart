@@ -10,34 +10,43 @@ connectDB();
 
 const app = express();
 
-// Allow requests from frontend only
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:8082']; // add your frontend URL/port here
-credentials: true // allow cookies and auth headers
+// ✅ Allowed Frontend Origins
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:8082', 'http://localhost:8083'];
+
+// ✅ Apply CORS properly ONCE before routes
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true // allow sending Authorization headers or cookies
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // allow cookies and Authorization headers
 }));
 
-// Middleware to parse JSON
+// ✅ Body parser middleware
 app.use(express.json());
 
-// Test route
+// ✅ Test route
 app.get('/', (req, res) => {
   res.send('Smart Borehole Monitoring System Backend is running');
 });
 
-// Routes
+// ✅ Routes
 const testRoutes = require('./routes/test');
 const sensorDataRoutes = require('./routes/sensorData');
 const alertRoutes = require('./routes/alerts');
 const authRoutes = require('./routes/auth');
 const maintenanceRoutes = require('./routes/maintenance');
 
-// Use routes
 app.use('/api/test', testRoutes);
 app.use('/api/sensor-data', sensorDataRoutes);
 app.use('/api/alerts', alertRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/maintenance', maintenanceRoutes);
 
+// ✅ Export the app
 module.exports = app;
