@@ -9,4 +9,20 @@ const instance = axios.create({
   }
 });
 
+// ✅ Interceptor: Inject token from localStorage into Authorization header
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log('Token injected into request:', token);  // Debug log
+    }
+    return config;
+  },
+  (error) => {
+    console.error('Axios request error:', error);
+    return Promise.reject(error);
+  }
+);
+
 export default instance;
