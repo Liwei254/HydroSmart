@@ -43,6 +43,9 @@ const rolePermissions = {
     'view_reports_analytics_limited',
     'language_unit_settings_personal',
     'reset_user_passwords_for_self'
+  ],
+  sensor: [
+    'add_sensor_data'  // ✅ Arduino only permission
   ]
 };
 
