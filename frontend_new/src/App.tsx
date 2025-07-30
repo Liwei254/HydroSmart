@@ -1,3 +1,4 @@
+//app.tsx/ /  
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import Login from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { LandingPage } from "./pages/LandingPage";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,9 @@ const AppRoutes = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<LandingPage/>}/>
+      <Route path="/home" element={<LandingPage/>}/>
+      
       {/* Default route - redirect based on login status */}
       <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} replace />} />
 
