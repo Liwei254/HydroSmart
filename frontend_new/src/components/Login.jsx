@@ -38,7 +38,7 @@ const Login = () => {
     navigate('/dashboard');
 
   } catch (err) {
-    setError(err.response?.data?.message || 'Login failed');
+    setError(err.response?.data?.message || 'Contact Admin: 0743818688');
   }
 };
 
