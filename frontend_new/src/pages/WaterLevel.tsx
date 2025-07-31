@@ -17,7 +17,7 @@ const WaterLevel = () => {
         setLoading(true);
         setError(null);
         // Replace 'default' with actual boreholeId as needed
-        const response = await axios.get("/api/sensor-data/realtime", {
+        const response = await axios.get("/sensor-data/realtime", {
           params: { boreholeId: "default" },
           headers: { Authorization: `Bearer ${user.token}` }
         });

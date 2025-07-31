@@ -10,7 +10,7 @@ import { useAuth } from "@/contexts/AuthContext"; // Import useAuth
 import { useNavigate } from "react-router-dom";  // For redirecting after logout
 
 const Index = () => {
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<StatData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,10 +25,14 @@ const Index = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('/api/sensor-data/realtime');
-        const maintenanceRes = await axios.get('/api/maintainance/last'); // new endpoint
+        const res = await axios.get('/sensor-data/realtime',
+           {
+  params: { boreholeId: 'BH001' }  // Replace with dynamic ID if needed
+}
+        );
+        const maintenanceRes = await axios.get('/maintenance/last'); // new endpoint
         setStats({ ...res.data, lastMaintenance: maintenanceRes.data });
-      } catch (err: any) {
+      } catch (err) {
         setError("Failed to load dashboard data.");
       } finally {
         setLoading(false);

@@ -13,7 +13,7 @@ const Alerts = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get("/api/alerts/summary");
+        const response = await axios.get("/alerts/summary");
         setAlerts(response.data.alerts || []);
       } catch (err) {
         setError("Failed to fetch alerts data");

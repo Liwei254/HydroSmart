@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '@/axiosInstance';
 
 // Import your dashboard UI components
 import { StatCard } from '@/components/dashboard/StatCard';
@@ -19,19 +19,22 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   // Fetch real-time data from backend
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get('/api/sensorData/realtime'); // Adjust endpoint
-        setBoreholeData(res.data);
-      } catch (err) {
-        setError('Failed to load data');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('/sensor-data/realtime', {
+        params: { boreholeId: 'BH001' }
+      });
+      setBoreholeData(res.data);
+    } catch (err) {
+      setError('Failed to load real-time data');
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchData();
+}, []);
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');

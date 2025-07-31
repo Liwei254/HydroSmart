@@ -11,11 +11,10 @@ connectDB();
 const app = express();
 
 // ✅ Allowed Frontend Origins
-const allowedOrigins = ['http://localhost:3000', 
-  'http://192.168.207.1:3000',
-  'http://192.168.207.1:8082',
-  'http://localhost:8082', 
-  'http://localhost:8083', 
+const allowedOrigins = ['http://localhost:8082',
+  'http://localhost:3000', 
+  'http://192.168.116.44:3000',
+  'http://192.168.116.44:8082',  
   'https://lively-rock-0307c851e.1.azurestaticapps.net'];
 
 // ✅ Apply CORS properly ONCE before routes
