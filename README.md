@@ -37,7 +37,7 @@ The **Smart Borehole Monitoring System (SBMS)** is an IoT-powered platform for *
 
 ### 1. Clone the Repository
 ```bash
-git clone (https://github.com/Liwei254/HydroSmart.git)
+git clone "https://github.com/Liwei254/HydroSmart.git"
 cd sbms
 cd backend
 npm install
