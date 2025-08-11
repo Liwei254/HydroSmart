@@ -29,7 +29,7 @@ The **Smart Borehole Monitoring System (SBMS)** is an IoT-powered platform for *
 | Database            | MongoDB (Mongoose ODM)                   |
 | Frontend Dashboard  | React, TypeScript, Tailwind CSS          |
 | Hosting (Frontend)  | Azure Static Web Apps           |
-| Hosting (Backend)   | Render / Railway / Azure App Service     |
+| Hosting (Backend)   | Azure App Service     |
 
 ---
 
