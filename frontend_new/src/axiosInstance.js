@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://192.168.116.44:5000/api',  // Backend server URL
+  baseURL: 'https://sbms-backend-h9chbccadtbfayhh.eastus-01.azurewebsites.net/api',  // Backend server URL
   withCredentials: true,                 // Send cookies/tokens
   headers: {
     'Content-Type': 'application/json',
