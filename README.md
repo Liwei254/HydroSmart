@@ -287,34 +287,6 @@ Now, I will proceed to update the README file with the enhanced content.
 <create_file>
 <path>README.md</path>
 <content>
-# Smart Borehole Monitoring System (SBMS)
-
-## Overview
-The **Smart Borehole Monitoring System (SBMS)** is an IoT-powered platform for **real-time monitoring, control, and analysis** of rural borehole water systems. Designed to ensure **efficient water management**, it helps prevent pump failures, optimize water usage, and facilitate proactive maintenance, especially in **rural communities**.
-
-## 🌐 Features
-- 📊 **Real-Time Data Visualization**: Monitor water level, pump status, vibration, and connectivity in real-time.
-- 📈 **Historical Trends & Analytics**: Analyze usage patterns, water levels, and vibrations over time.
-- 🚨 **Alerting System**: Receive alerts for pump issues, low water levels, and sensor failures.
-- 🛠️ **Maintenance Logging**: Keep track of maintenance activities and schedules.
-- 🔐 **User Roles & Permissions**: Manage access with roles for Admin, Technician, and Viewer.
-- 🌎 **Remote IoT Data Integration**: Seamlessly integrate data from ESP32 microcontrollers.
-- 💾 **MongoDB Data Storage**: Store sensor data, alerts, and maintenance logs securely.
-- 🔐 **JWT-Based Secure API Authentication**: Ensure secure access to the API.
-
-## 🏗️ System Architecture
-![System Architecture Diagram](link_to_diagram) <!-- Add a link to the architecture diagram -->
-
-## 🛠️ Technologies Used
-
-| Component           | Technology                               |
-|---------------------|------------------------------------------|
-| IoT Hardware        | ESP32 Microcontroller, Ultrasonic Sensor, Vibration Sensor |
-| Backend API         | Node.js, Express.js, JWT Auth            |
-| Database            | MongoDB (Mongoose ODM)                   |
-| Frontend Dashboard  | React, TypeScript, Tailwind CSS          |
-| Hosting (Frontend)  | Azure Static Web Apps                    |
-| Hosting (Backend)   | Azure App Service                        |
 
 ## 🚀 Getting Started
 
