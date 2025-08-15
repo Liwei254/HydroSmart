@@ -10,8 +10,6 @@
 
 **An IoT-powered platform for real-time monitoring and management of rural borehole water systems**
 
-[📖 Documentation](#-documentation) • [🚀 Quick Start](#-quick-start) • [🔧 API Reference](#-api-reference) • [🤝 Contributing](#-contributing)
-
 </div>
 
 ## 📋 Table of Contents
